@@ -26,6 +26,28 @@ class Auth0Client
     }
   end
 
+  def method_missing(meth, *args, &block)
+    meth_split = meth.split('_')
+    action = meth_split.shift
+    path = meth_split.join('/')
+
+    options = ( args.shift || {} )
+
+    id = options[:id]
+    body = options[:body]
+
+    uri = URI.escape("/api/#{path}/#{id}")
+
+    _args = []
+
+    _args << action
+    _args << uri
+    _args << { body: body }
+
+    response = self.class.send(*_args)
+    response.body
+  end
+
   def get_connections
     response = self.class.get("/api/connections", { headers: @headers })
     response.body
