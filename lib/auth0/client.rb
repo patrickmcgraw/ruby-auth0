@@ -24,7 +24,8 @@ class Auth0Client
 
     @token = token_reponse["access_token"]
     @headers = {
-      "Authorization" => "Bearer #{@token}"
+      "Authorization" => "Bearer #{@token}",
+      "Content-Type" => 'application/json'
     }
   end
 
