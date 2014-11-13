@@ -5,6 +5,8 @@ class Auth0Client
   include HTTParty
   base_uri 'login.auth0.com'
 
+  attr_reader :last_response
+
   def initialize(options)
     self.class.base_uri "https://#{options[:namespace]}"
 
@@ -44,8 +46,8 @@ class Auth0Client
     _args << uri
     _args << { body: body, headers: @headers }
 
-    response = self.class.send(*_args)
-    response.body
+    @last_response = self.class.send(*_args)
+    @last_response.body
   end
 
   def get_connections
