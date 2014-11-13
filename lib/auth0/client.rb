@@ -27,7 +27,7 @@ class Auth0Client
   end
 
   def method_missing(meth, *args, &block)
-    meth_split = meth.split('_')
+    meth_split = meth.to_s.split('_')
     action = meth_split.shift
     path = meth_split.join('/')
 
