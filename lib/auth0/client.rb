@@ -42,7 +42,7 @@ class Auth0Client
 
     _args << action
     _args << uri
-    _args << { body: body }
+    _args << { body: body, headers: @headers }
 
     response = self.class.send(*_args)
     response.body
